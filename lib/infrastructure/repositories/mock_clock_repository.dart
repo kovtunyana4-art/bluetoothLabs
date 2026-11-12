@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
 import '../../domain/entities/ble_device_entity.dart';
 import '../../domain/entities/clock_status.dart';
 import '../../domain/interfaces/i_clock_repository.dart';
@@ -13,22 +12,7 @@ class MockClockRepository implements IClockRepository {
   final StreamController<ClockStatus> _statusController = StreamController<ClockStatus>.broadcast();
   final StreamController<List<BleDeviceEntity>> _scanResultsController = StreamController<List<BleDeviceEntity>>.broadcast();
 
-  Timer? _mockTimer;
-
-  MockClockRepository() {
-    _startSimulatedUpdates();
-  }
-
-  void _startSimulatedUpdates() {
-    _mockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-      final now = DateTime.now();
-      _status.time = DateFormat('HH:mm:ss').format(now);
-      _status.date = DateFormat('dd.MM.yyyy').format(now);
-      final temp = 24.0 + (now.second % 5) * 0.2;
-      _status.temperature = "${temp.toStringAsFixed(1)}°C";
-      _statusController.add(_status.copy());
-    });
-  }
+  MockClockRepository();
 
   @override
   bool get isConnected => _isConnected;
@@ -113,7 +97,6 @@ class MockClockRepository implements IClockRepository {
 
   @override
   void dispose() {
-    _mockTimer?.cancel();
     _statusController.close();
     _scanResultsController.close();
   }

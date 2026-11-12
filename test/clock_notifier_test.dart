@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:bluetooth/clock_notifier.dart';
 import 'package:bluetooth/main.dart';
 
 void main() {
