@@ -45,6 +45,18 @@ class ClockStatus {
     return "${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}";
   }
 
+  /// Чи спрацював будильник зараз (тривога)
+  bool get isAlarmTriggered => alarmState == "TRIGGERED";
+
+  /// Чи увімкнений будильник
+  bool get isAlarmEnabled => alarm != "OFF";
+
+  /// Чи завершився відлік таймера
+  bool get isTimerFinished => timerState == "FINISHED";
+
+  /// Чи запущений секундомір
+  bool get isStopwatchRunning => stopwatchState == "RUNNING";
+
   void updateFromLine(String line) {
     if (line.startsWith("TIME=")) {
       time = line.substring(5);
